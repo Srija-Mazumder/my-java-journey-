@@ -1,8 +1,8 @@
 import java.util.*;
 
-public class longestcommonsubsequence { 
+public class longestcommonsubsequence { // Class name should follow CamelCase
 
-    public static int lcs(String str_a, String str_b) {
+    public static int lcs(String str_a, String str_b) { // Function parameters should be Strings
         int m = str_a.length();
         int n = str_b.length();
 
@@ -11,10 +11,10 @@ public class longestcommonsubsequence {
         }
 
         if (str_a.charAt(m - 1) == str_b.charAt(n - 1)) {
-            return 1 + lcs(str_a.substring(0, m - 1), str_b.substring(0, n - 1)); 
+            return 1 + lcs(str_a.substring(0, m - 1), str_b.substring(0, n - 1)); // Correct substrings
         } else {
-            return Math.max(lcs(str_a, str_b.substring(0, n - 1)),
-                           lcs(str_a.substring(0, m - 1), str_b)); 
+            return Math.max(lcs(str_a, str_b.substring(0, n - 1)), // Exclude last character of Y
+                           lcs(str_a.substring(0, m - 1), str_b)); // Exclude last character of X
         }
     }
 
