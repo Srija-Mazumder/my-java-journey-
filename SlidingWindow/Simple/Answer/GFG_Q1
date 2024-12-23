@@ -1,0 +1,33 @@
+public class Main {
+    public static int maxSum(int arr[], int k) {
+        int n = arr.length;
+        if (n < k) return -1; 
+        
+        int l = 0, windowSum = 0, maxSum = Integer.MIN_VALUE;
+
+        for (int r = 0; r < n; r++) {
+            windowSum += arr[r];
+            if (r - l + 1 == k) {
+                maxSum = Math.max(maxSum, windowSum);
+                windowSum -= arr[l];
+                l++;  
+            }
+        }
+
+        return maxSum;
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = {100, 200, 300, 400};
+        int k1 = 2;
+        System.out.println("Maximum sum of subarray of size " + k1 + ": " + maxSum(arr1, k1));
+
+        int[] arr2 = {100, 200, 300, 400};
+        int k2 = 4;
+        System.out.println("Maximum sum of subarray of size " + k2 + ": " + maxSum(arr2, k2));
+
+        int[] arr3 = {100, 200, 300, 400};
+        int k3 = 1;
+        System.out.println("Maximum sum of subarray of size " + k3 + ": " + maxSum(arr3, k3));
+    }
+}
