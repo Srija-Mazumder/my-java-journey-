@@ -1,0 +1,55 @@
+import java.util.*;
+
+public class Main {
+    public static ArrayList<Integer> subarraySum(int[] arr, int target) {
+        // HashMap to store prefix sums and their indices
+        HashMap<Integer, Integer> prefixSumMap = new HashMap<>();
+        ArrayList<Integer> result = new ArrayList<>();
+        int windowSum = 0;
+
+        for (int r = 0; r < arr.length; r++) {
+            // Add the current element to the running sum
+            windowSum += arr[r];
+
+            // Check if the entire sum equals the target
+            if (windowSum == target) {
+                result.add(1); // 1-based index for start
+                result.add(r + 1); // 1-based index for end
+                return result;
+            }
+
+            // Check if (windowSum - target) exists in the HashMap
+            if (prefixSumMap.containsKey(windowSum - target)) {
+                result.add(prefixSumMap.get(windowSum - target) + 1); // Start index
+                result.add(r + 1); // End index
+                return result;
+            }
+
+            // Store the current prefix sum with its index
+            prefixSumMap.put(windowSum, r + 1);
+        }
+
+        // If no subarray is found, return [-1]
+        result.add(-1);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        // Test cases
+        int[] arr1 = {1, 2, 3, 7, 5};
+        int target1 = 12;
+        System.out.println(subarraySum(arr1, target1)); // Output: [2, 4]
+
+        int[] arr2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int target2 = 15;
+        System.out.println(subarraySum(arr2, target2)); // Output: [1, 5]
+
+        int[] arr3 = {7, 2, 1};
+        int target3 = 2;
+        System.out.println(subarraySum(arr3, target3)); // Output: [2, 2]
+
+        int[] arr4 = {5, 3, 4};
+        int target4 = 2;
+        System.out.println(subarraySum(arr4, target4)); // Output: [-1]
+    }
+}
