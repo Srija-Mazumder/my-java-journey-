@@ -1,0 +1,46 @@
+import java.util.HashMap;
+
+public class Solution {
+
+    public int subarraySum(int[] nums, int k) {
+        
+        HashMap<Integer, Integer> subNum = new HashMap<>(); // < sum , frequency >
+        subNum.put(0, 1); // Base case: Prefix sum 0 occurs once.
+
+        int total = 0; // Running prefix sum.
+        int count = 0; // Count of subarrays with sum equal to k.
+
+        for (int n : nums) {
+            total += n; 
+
+            // Check if (total - k) exists in the HashMap
+            if (subNum.containsKey(total - k)) {
+                count += subNum.get(total - k); // Add its frequency to count.
+            }
+
+            subNum.put(total, subNum.getOrDefault(total, 0) + 1);
+        }
+
+        return count; 
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        int[] nums1 = {1, 1, 1};
+        int k1 = 2;
+        System.out.println("Output: " + solution.subarraySum(nums1, k1)); // Expected Output: 2
+
+        int[] nums2 = {1, 2, 3};
+        int k2 = 3;
+        System.out.println("Output: " + solution.subarraySum(nums2, k2)); // Expected Output: 2
+
+        int[] nums3 = {10, 2, -2, -20, 10};
+        int k3 = -10;
+        System.out.println("Output: " + solution.subarraySum(nums3, k3)); // Expected Output: 3
+
+        int[] nums4 = {0, 0, 0, 0, 0};
+        int k4 = 0;
+        System.out.println("Output: " + solution.subarraySum(nums4, k4)); // Expected Output: 15
+    }
+}
