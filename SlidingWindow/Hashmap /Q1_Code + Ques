@@ -1,0 +1,55 @@
+import java.util.*;
+
+public class Main {
+
+    public static int check(int n, int logs_count, String[] logs) {
+        int length = logs.length;
+        int l = 0, r = 0, replacements = 0;
+        
+        HashMap<String, Integer> mp = new HashMap<>();
+        
+        while (r < length) {
+           
+            String[] logParts = logs[r].split(",");
+            String serverId = logParts[0].trim();
+            String status = logParts[1].trim();
+
+            
+            if (status.equals("error")) {
+                // If the server was already in the map with 2 errors, replace the server
+                if (mp.containsKey(serverId) && mp.get(serverId) == 2) {
+                    replacements++;
+                    System.out.println("Detection: " + serverId + " is replaced");
+                    // Reset the consecutive error count after replacement
+                    mp.put(serverId, 0);
+                    l = r + 1; // Move the left pointer to the next log after replacement
+                } else {
+                    // If not 2 errors yet, increment the error count
+                    mp.put(serverId, mp.getOrDefault(serverId, 0) + 1);
+                }
+            } else {
+                // Reset error count if the status is success
+                mp.put(serverId, 0);
+            }
+
+            // Move the right pointer forward
+            r++;
+        }
+        
+        return replacements;
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        String[] logs = {
+            "S1, error", "S1, error", "S1, error", 
+            "S2, success", "S3, error", "S3, error", "S3, success",
+            "S1, success", "S2, error", "S2, error", "S2, error"
+        };
+        
+        int n = 3;
+        int logs_count = logs.length;
+        
+        System.out.println("Total replacements: " + check(n, logs_count, logs));  // Output: Detection messages and total replacements
+    }
+}
