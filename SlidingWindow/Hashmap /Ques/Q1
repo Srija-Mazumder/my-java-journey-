@@ -1,0 +1,73 @@
+Problem: Faulty Server Detection and Replacement
+You are tasked with building a service that automates the detection and replacement of faulty servers to improve the availability of an application. The service should monitor logs that track the requests processed by each server. If a server encounters errors in three consecutive requests, it is considered faulty and should be replaced with a new server of the same ID.
+
+You are given:
+n servers, each identified by a unique ID, ranging from S1 to SN.
+A log array consisting of m logs where each log entry has the format: "<server_id>, <status>". The status can either be "success" or "error", indicating whether the request was processed successfully or encountered an error.
+
+Requirements:
+For each server, monitor the logs and check for any occurrence of three consecutive errors.
+If three consecutive errors are found for a server, that server is considered faulty and is replaced with a new server with the same ID.
+You need to calculate the total number of times a server has been replaced due to this fault detection rule.
+
+Input:
+An integer n (1 <= n <= 100), representing the number of servers.
+An array of strings logs[] of size m (1 <= m <= 10^4) where each string is in the format: <server_id>, <status>.
+
+Output:
+An integer, the total number of times a server was replaced due to consecutive errors.
+
+
+Example:
+Input:
+n = 3
+logs = [
+  "S1, error",
+  "S1, error",
+  "S1, error",
+  "S2, success",
+  "S3, error",
+  "S3, error",
+  "S3, success",
+  "S1, success",
+  "S2, error",
+  "S2, error",
+  "S2, error"
+]
+
+Output:
+2
+
+
+Explanation:
+Server S1 encountered three consecutive errors and was replaced once.
+Server S2 encountered three consecutive errors and was replaced once.
+Server S3 did not encounter three consecutive errors, so no replacement occurred.
+
+
+Table:
+| Log              | Server ID | Status  | Last 3 Status at Server ID          | Fault Detection     |
+|------------------|-----------|---------|-------------------------------------|---------------------|
+| "S1, error"      | S1        | error   | ["error"]                           | No                  |
+| "S1, error"      | S1        | error   | ["error", "error"]                  | No                  |
+| "S1, error"      | S1        | error   | ["error", "error", "error"]         | Yes (Replaced)      |
+| "S2, success"    | S2        | success | ["success"]                         | No                  |
+| "S3, error"      | S3        | error   | ["error"]                           | No                  |
+| "S3, error"      | S3        | error   | ["error", "error"]                  | No                  |
+| "S3, success"    | S3        | success | ["error", "error", "success"]       | No                  |
+| "S1, success"    | S1        | success | ["success"]                         | No                  |
+| "S2, error"      | S2        | error   | ["error"]                           | No                  |
+| "S2, error"      | S2        | error   | ["error", "error"]                  | No                  |
+| "S2, error"      | S2        | error   | ["error", "error", "error"]         | Yes (Replaced)      |
+
+
+Constraints:
+The log array logs[] can be quite large, with up to 10,000 entries, so an efficient solution is needed.
+Each server is identified by a string ID in the format "S1", "S2", etc., and the log contains entries for multiple servers, which can appear in any order.
+It’s essential to track and replace faulty servers whenever three consecutive errors are encountered.
+
+
+
+Note:
+A new server will have the same server ID but a fresh log history.
+Ensure to implement the solution efficiently, considering both time and space complexity.
