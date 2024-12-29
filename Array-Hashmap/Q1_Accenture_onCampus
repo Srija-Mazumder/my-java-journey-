@@ -1,0 +1,88 @@
+Problem: Maximum Product Pair with Target Sum
+Problem Statement
+You are given an array of integers nums and a target sum targetSum. Your task is to find a pair (a, b) such that:
+𝑎 + 𝑏 = targetSum ,
+a > b, and
+The product  𝑎  ×  𝑏  is maximized.
+
+If there are multiple pairs that satisfy these conditions, return the one with the maximum product. If no such pair exists, return an empty array.
+
+Input Format:
+nums: An array of integers where   1 ≤  nums.length  ≤10^5   and  −10^4 ≤ nums[i] ≤  10^4.
+targetSum: An integer where  −10^4  ≤  targetSum  ≤10^4.
+
+Output Format:
+An array containing the pair [a, b] where a>b and a+b=targetSum, such that the product a×b is maximized.
+If no valid pair exists, return an empty array [].
+
+Examples
+Input:
+nums = [1, 4, 6, 8, 7, 11, 10]
+targetSum = 18
+
+Output:
+[10, 8]
+-----------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Explanation :
+
+Key Idea
+1) Complements: For every number  x in the array, calculate its complement:  complement  =  targetSum  − 𝑥
+  If the complement is already seen in the array, it means  x and the complement together form a pair that satisfies the sum condition.
+2) Maximizing Product: Whenever a pair is found, ensure that  a>b,  Check if their product  a×b is greater than the current maximum product. If yes, update the result.
+
+Using a HashMap:
+
+The HashMap stores the complement as the key and the current number as the value. This allows O(1) lookups to check if a complement exists.
+-------------------------------------------------------------------------------------------
+Algorithm
+Initialize Variables: A HashMap to store complements. Variables to keep track of the maximum product and the pair producing it.
+Iterate Through the Array: For each number x: Calculate its complement as targetSum − x.
+     Check if x exists in the HashMap (indicating its complement has been seen before).
+      If x exists:
+      Let a = x and b = map.get(x).
+      Check if a > b and if a × b is greater than the current maximum product. Update the result if true.
+      If x does not exist in the HashMap:
+      Add the complement as a key and x as its value.
+Return the Result:
+
+If no valid pair is found, return an empty array.
+Otherwise, return the pair with the maximum product.
+-------------------------------------------------------------------------------------------
+Example Walkthrough
+Input:
+nums = [1, 4, 6, 8, 7, 11, 10]
+targetSum = 18
+
+Step 1: Initialize Variables
+HashMap = {} (empty)
+maxProduct = -1
+result = []
+Step 2: Iterate Through Array
+x = 1, complement = 18 − 1 = 17:
+
+Add 17 to HashMap → HashMap = {17: 1}.
+x = 4, complement = 18 − 4 = 14:
+
+Add 14 to HashMap → HashMap = {17: 1, 14: 4}.
+x = 6, complement = 18 − 6 = 12:
+
+Add 12 to HashMap → HashMap = {17: 1, 14: 4, 12: 6}.
+x = 8, complement = 18 − 8 = 10:
+
+Add 10 to HashMap → HashMap = {17: 1, 14: 4, 12: 6, 10: 8}.
+x = 7, complement = 18 − 7 = 11:
+
+Add 11 to HashMap → HashMap = {17: 1, 14: 4, 12: 6, 10: 8, 11: 7}.
+x = 11, complement = 18 − 11 = 7:
+
+Found 7 in HashMap. Pair = (11,7), Product = 11 × 7 = 77.
+Update maxProduct = 77, result = [11,7].
+x = 10, complement = 18 − 10 = 8:
+
+Found 8 in HashMap. Pair = (10,8), Product = 10 × 8 = 80.
+Update maxProduct = 80, result = [10,8].
+Step 3: Return Result
+result = [10,8]
+
