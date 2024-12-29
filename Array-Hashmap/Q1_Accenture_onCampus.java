@@ -1,58 +1,60 @@
-import java.util.Arrays;
-
+import java.util.*;
 public class Q1_Accenture_onCampus {
 
-    // Method to find the pair
     public static int[] find(int nums[], int targetSum) {
-        int l = nums.length;
-        int i = 0, j = l - 1;
-        int maxProd = -1;
+        HashMap<Integer, Integer> map = new HashMap<>(); // To store complements
+        int maxProd = Integer.MIN_VALUE;
         int[] result = new int[2];
         boolean pairFound = false;
 
-        // Step 1: Sort the array
-        Arrays.sort(nums);
+        for (int num : nums) {
+            int complement = targetSum - num;
 
-        // Step 2: Two-pointer approach
-        while (i < j) {
-            int currentSum = nums[i] + nums[j];
+            // Check if complement exists in the map
+            if (map.containsKey(num)) {
+                int a = num;
+                int b = map.get(num);
 
-            if (currentSum == targetSum) {
-                if (nums[j] > nums[i]) { // Condition a > b
-                    int product = nums[i] * nums[j];
+                // Ensure a > b and maximize product
+                if (a > b) {
+                    int product = a * b;
                     if (product > maxProd) {
                         maxProd = product;
-                        result[0] = nums[j]; // a (greater value)
-                        result[1] = nums[i]; // b (smaller value)
+                        result[0] = a;
+                        result[1] = b;
                         pairFound = true;
                     }
                 }
-                j--; // Move j to check other possibilities
-            } else if (currentSum < targetSum) {
-                i++; // Move i to the right
             } else {
-                j--; // Move j to the left
+                // Store the complement
+                map.put(complement, num);
             }
         }
 
-        // Step 3: Return the result or indicate no pair found
-        if (pairFound) {
-            return result;
-        } else {
-            return null; // No valid pair found
-        }
+        return pairFound ? result : new int[] {}; // Return empty array if no pair found
     }
 
     public static void main(String[] args) {
         int nums[] = {1, 4, 6, 8, 7, 11, 10};
-        int targetSum = 19;
+        int targetSum = 18;
 
         int[] pair = find(nums, targetSum);
 
-        if (pair != null) {
+        if (pair.length > 0) {
             System.out.println("The pair is: (" + pair[0] + ", " + pair[1] + ")");
         } else {
             System.out.println("No such pair exists.");
         }
     }
 }
+---------------------------------------------------------------
+//     Complexity Analysis
+// Time Complexity:
+
+// Traversing the array takes O(n).
+// Each HashMap lookup and insertion is O(1).
+// Overall: O(n).
+// Space Complexity:
+
+// The HashMap stores up to n elements in the worst case.
+// Space complexity: O(n).
