@@ -1,0 +1,30 @@
+TCS IMP CODING QUESTION: 04
+
+Problem Statement:
+
+A charitable trust organizes a food donation drive. Each volunteer can distribute a certain number of food packets per day. Given the total number of food packets needed (F) and the maximum packets each volunteer can distribute (D), determine the minimum number of volunteers required and how many days it will take if all volunteers distribute packets at full capacity each day.
+
+• Input:
+
+Two integers: F (total packets needed) and D (packets distributed by one volunteer per day).
+• Constraints:
+
+a. F >= 1
+b. D >= 1
+c. If F or D is invalid (e.g., non-positive), print "INVALID INPUT".
+
+• Output:
+
+Two integers (or a descriptive line) indicating: i. The minimum volunteers required ii. The days needed
+Example:
+
+Input:
+
+120
+10
+
+Output:
+
+Volunteers=12 Days=1
+
+Explanation: To distribute 120 packets in one day, each volunteer can distribute 10 packets, so 120/10=12 volunteers are needed, taking exactly 1 day.
