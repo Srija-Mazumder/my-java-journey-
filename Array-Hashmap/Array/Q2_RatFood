@@ -1,0 +1,18 @@
+Question:
+Write a function that accepts three parameters:
+
+Two positive integers r and unit, and
+A positive integer array arr of size n.
+Parameters:
+
+r: Represents the number of rats present in an area.
+unit: The amount of food each rat consumes.
+arr: Each element of the array represents the amount of food present in a house, where the index of the array corresponds to the house number.
+The function should determine the minimum number of houses required to provide enough food for all the rats.
+
+Constraints:
+Return -1 if the array is empty.
+Return 0 if the total amount of food from all houses is not sufficient for all the rats.
+Computed values lie within the integer range.
+Assume the array contains non-negative integers representing the food quantities.
+The array length, n, and food units are positive integers.
